@@ -839,6 +839,89 @@ button:disabled {
   height: 118px;
 }
 
+.section-why-choose .container {
+  position: relative;
+}
+
+.section-why-choose .container::after {
+  content: '';
+  position: absolute;
+  right: -52px;
+  top: 28px;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(201, 243, 29, 0.16), transparent 66%);
+  filter: blur(44px);
+  pointer-events: none;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: var(--card-gap);
+  align-items: start;
+}
+
+.why-copy {
+  display: grid;
+  gap: 16px;
+}
+
+.why-copy p {
+  margin: 0;
+  max-width: 470px;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+.why-points {
+  display: grid;
+  gap: 14px;
+}
+
+.why-point {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    linear-gradient(120deg, rgba(201, 243, 29, 0.06), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.012));
+}
+
+.why-point-bullet {
+  position: relative;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 5px rgba(201, 243, 29, 0.08),
+    0 0 22px rgba(201, 243, 29, 0.35);
+}
+
+.why-point-bullet::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(201, 243, 29, 0.18);
+  border-radius: 999px;
+}
+
+.why-point-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
 .ticker-section {
   padding: 4px 0 14px;
 }
@@ -1977,6 +2060,10 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
   .portfolio-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2342,7 +2429,8 @@ button:disabled {
   }
 
   .section-services .container::after,
-  .section-testimonials .container::after {
+  .section-testimonials .container::after,
+  .section-why-choose .container::after {
     top: 74px;
     right: -48px;
     width: 170px;
@@ -2384,6 +2472,34 @@ button:disabled {
 
   .portfolio-title {
     font-size: 2.9rem;
+  }
+
+  .why-copy p {
+    max-width: 100%;
+    font-size: 0.8rem;
+    line-height: 1.8;
+  }
+
+  .why-points {
+    gap: 10px;
+  }
+
+  .why-point {
+    gap: 12px;
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+
+  .why-point-bullet {
+    width: 10px;
+    height: 10px;
+    box-shadow:
+      0 0 0 4px rgba(201, 243, 29, 0.08),
+      0 0 14px rgba(201, 243, 29, 0.26);
+  }
+
+  .why-point-text {
+    font-size: 0.94rem;
   }
 
   .portfolio-star {

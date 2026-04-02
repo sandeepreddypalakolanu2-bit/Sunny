@@ -71,6 +71,13 @@ const services = [
   },
 ];
 
+const whyChooseMePoints = [
+  'Clean & modern design',
+  'Focus on personal branding',
+  'Beginner-friendly guidance',
+  'Affordable pricing',
+];
+
 const projects = [
   {
     title: 'Ishwarya Portfolio Reel 01',
@@ -601,6 +608,30 @@ function App() {
                 <span>ABOUT ME</span>
                 <ArrowIcon />
               </button>
+            </div>
+          </SectionShell>
+
+          <SectionShell
+            id="why-choose"
+            label="Why Choose Me"
+            title="I don&apos;t just design websites. I help you present yourself with confidence."
+          >
+            <div className="why-grid">
+              <div className="why-copy">
+                <p>
+                  Every portfolio should feel clear, confident, and true to you. My process is
+                  designed to help you stand out without making things confusing or overwhelming.
+                </p>
+              </div>
+
+              <div className="why-points" aria-label="Why choose Ishwarya">
+                {whyChooseMePoints.map((point) => (
+                  <m.div key={point} className="why-point" variants={itemVariants} whileHover={{ x: 8 }}>
+                    <span className="why-point-bullet" aria-hidden="true" />
+                    <span className="why-point-text">{point}</span>
+                  </m.div>
+                ))}
+              </div>
             </div>
           </SectionShell>
 
