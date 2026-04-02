@@ -970,6 +970,22 @@ function App() {
           ) : null}
         </AnimatePresence>
 
+        <div className="mobile-contact-bar" aria-label="Quick mobile contact">
+          <a
+            className="mobile-contact-chip mobile-contact-chip-accent"
+            href={contactDetails.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp
+            <ArrowIcon />
+          </a>
+          <button className="mobile-contact-chip" type="button" onClick={openContactModal}>
+            Start Project
+            <ArrowIcon />
+          </button>
+        </div>
+
         <footer className="site-footer" id="footer-cta">
           <div className="container">
             <m.section
