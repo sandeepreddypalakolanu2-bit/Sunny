@@ -50,24 +50,62 @@ const services = [
     title: 'Web Development',
     image: 'https://framerusercontent.com/images/gZQJMwYScmj86fTl2jFqe8YbvRc.jpg?width=1400&height=788',
     slug: 'web-development',
+    features: ['Custom Portfolio Builds', 'SEO / Search Engine Optimization'],
   },
   {
     number: '02.',
     title: 'Branding & Identity',
     image: 'https://framerusercontent.com/images/YSFFIPqVrr2tIjlkHMC2PDbiDM.jpg?width=1400&height=788',
     slug: 'branding-identity',
+    features: [
+      'Running Advertisements on Social Media',
+      'Billboards Advertisement',
+      'Other Advertisement',
+    ],
   },
   {
     number: '03.',
     title: 'UX/UI Design',
     image: 'https://framerusercontent.com/images/bCZFlo66Qb5cVO4f5hPxi7I.jpg?width=1400&height=944',
     slug: 'ux-ui-design',
+    features: [
+      'Creating App and Web Pages',
+      'Developing Your Websites and Apps',
+      'Wireframes',
+      'Prototypes',
+      'User Flow',
+    ],
   },
   {
     number: '04.',
     title: 'Analytics & Strategy',
     image: 'https://framerusercontent.com/images/zmIVTE8LySXUXbZ6EJeQVR1xcGY.jpg?width=1400&height=933',
     slug: 'analytics-strategy',
+    features: [
+      'SEO Audit & Keyword Research',
+      'Website Performance Tracking',
+      'Audience Research',
+      'Content Strategy',
+      'Conversion Optimization',
+    ],
+  },
+  {
+    number: '05.',
+    title: 'Graphic Design',
+    image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1400&q=80',
+    slug: 'graphic-design',
+    features: [
+      'Social Media Creatives',
+      'Posters & Flyers',
+      'Logo & Brand Assets',
+      'Marketing Creatives',
+      'Presentation Design',
+      'Brochure Design',
+      'Banner Design',
+      'Thumbnail Design',
+      'Business Card Design',
+      'Packaging Design',
+    ],
   },
 ];
 
@@ -76,6 +114,36 @@ const whyChooseMePoints = [
   'Focus on personal branding',
   'Beginner-friendly guidance',
   'Affordable pricing',
+];
+
+const aboutOfferings = [
+  {
+    title: 'Portfolio Website Creation',
+    description:
+      'Clean, modern portfolio websites designed to showcase your skills, personality, and attract real opportunities.',
+  },
+  {
+    title: 'UI/UX Design',
+    description:
+      'Simple, user-focused designs for personal brands and landing pages that are visually strong and easy to navigate.',
+  },
+  {
+    title: 'Personal Branding',
+    description:
+      'Helping you structure your story, content, and online presence to stand out and build a strong identity.',
+  },
+  {
+    title: 'Brand Growth & Lead Support',
+    description:
+      'Along with my personal work, I also have experience working in a media and branding environment where I contribute to:',
+    bullets: [
+      'Lead generation and audience targeting',
+      'Promotions and advertisement campaigns',
+      'Brand positioning and growth strategies',
+    ],
+    note:
+      'This allows me to create portfolios that are not just visually good, but also aligned with real market needs.',
+  },
 ];
 
 const projects = [
@@ -112,6 +180,12 @@ const projects = [
 ];
 
 const awards = [
+  {
+    year: '2025',
+    title: 'Best Creator of 2025',
+    description:
+      'Recognized for delivering standout portfolio projects in 2025, combining clean visuals, personal branding, and user-focused design.',
+  },
   {
     year: '2024',
     title: 'Excellency Award',
@@ -237,8 +311,8 @@ const articles = [
 ];
 
 const footerLinks = {
-  Navigation: ['Home', 'About', 'Services', 'My Projects', 'Blog', '404'],
-  Services: ['Analytics & Strategy', 'UX/UI Design', 'Branding & Identity', 'Web Development', 'Get the Template'],
+  Navigation: ['Home: Bangalore, India', 'About', 'Services: All Over India', 'My Projects', 'Blog', '404'],
+  Services: ['Graphic Design', 'Analytics & Strategy', 'UX/UI Design', 'Branding & Identity', 'Web Development'],
 };
 
 const whatsappPrefillMessage = encodeURIComponent(
@@ -344,6 +418,154 @@ function CountUpStat({ stat, prefersReducedMotion }) {
       </span>
       <span className="stat-label">{stat.label}</span>
     </m.article>
+  );
+}
+
+function ServiceRow({ service }) {
+  const rowRef = useRef(null);
+  const isInView = useInView(rowRef, { once: true, amount: 0.55 });
+
+  return (
+    <m.a
+      ref={rowRef}
+      className={`service-row${isInView ? ' is-open' : ''}`}
+      href="#footer-cta"
+      variants={itemVariants}
+      whileHover={{ y: -8 }}
+    >
+      <div className="service-row-main">
+        <span className="service-number">{service.number}</span>
+        <div className="service-row-copy">
+          <h3>{service.title}</h3>
+          {service.features?.length ? (
+            <div className="service-row-features" aria-label={`${service.title} features`}>
+              {service.features.map((feature, index) => (
+                <span
+                  key={feature}
+                  className="service-row-feature"
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+      <span className="service-row-arrow">
+        <ArrowIcon />
+      </span>
+      <span className="service-row-preview" aria-hidden="true">
+        <img src={service.image} alt="" />
+      </span>
+    </m.a>
+  );
+}
+
+function PortfolioLiveCount({ total, prefersReducedMotion }) {
+  const countRef = useRef(null);
+  const isInView = useInView(countRef, { once: true, amount: 0.7 });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined;
+    }
+
+    if (prefersReducedMotion) {
+      setDisplayValue(total);
+      return undefined;
+    }
+
+    let frameId = 0;
+    let startTime = 0;
+    const duration = 1200;
+
+    const tick = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
+      }
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+      setDisplayValue(Math.round(total * easedProgress));
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [isInView, prefersReducedMotion, total]);
+
+  return (
+    <m.div ref={countRef} className="portfolio-live-card" variants={itemVariants}>
+      <span className="portfolio-live-dot" aria-hidden="true" />
+      <div className="portfolio-live-copy">
+        <span className="portfolio-live-label">Live Running Count</span>
+        <div className="portfolio-live-value-wrap">
+          <strong>{String(displayValue).padStart(2, '0')}</strong>
+          <span>Projects</span>
+        </div>
+      </div>
+    </m.div>
+  );
+}
+
+function FooterLiveProjectsCounter({ prefersReducedMotion }) {
+  const counterRef = useRef(null);
+  const isInView = useInView(counterRef, { once: true, amount: 0.65 });
+  const startValue = 40;
+  const endValue = 100;
+  const [displayValue, setDisplayValue] = useState(startValue);
+
+  useEffect(() => {
+    if (!isInView) {
+      return undefined;
+    }
+
+    if (prefersReducedMotion) {
+      setDisplayValue(endValue);
+      return undefined;
+    }
+
+    let frameId = 0;
+    let startTime = 0;
+    const duration = 1500;
+
+    const tick = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
+      }
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+      const nextValue = Math.round(startValue + (endValue - startValue) * easedProgress);
+
+      setDisplayValue(nextValue);
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div ref={counterRef} className="footer-live-projects">
+      <span className="footer-live-projects-label">Live Projects</span>
+      <strong>{displayValue}+</strong>
+    </div>
   );
 }
 
@@ -617,7 +839,7 @@ function App() {
                   </div>
 
                   <p className="hero-description">
-                    I&apos;m a portfolio designer and personal branding enthusiast helping
+                    I&apos;m a graphic designer and UI/UX designer helping
                     students, freelancers, and creators build a presence that opens real
                     opportunities.
                   </p>
@@ -655,7 +877,7 @@ function App() {
             <div className="about-grid">
               <div className="about-copy">
                 <p>
-                  Hi, I&apos;m Ishwarya, a portfolio designer and personal branding enthusiast who
+                  Hi, I&apos;m Ishwarya, a graphic designer and UI/UX designer who
                   believes the way you present yourself can change your entire life.
                 </p>
                 <p>
@@ -676,11 +898,28 @@ function App() {
                   It&apos;s about helping people take control of their lives and create opportunities on
                   their own terms.
                 </p>
+
+                <div className="about-offerings-grid" aria-label="What Ishwarya offers">
+                  {aboutOfferings.map((offering) => (
+                    <m.article key={offering.title} className="about-offering-card" variants={itemVariants}>
+                      <h3>{offering.title}</h3>
+                      <p>{offering.description}</p>
+                      {offering.bullets?.length ? (
+                        <ul className="about-offering-list">
+                          {offering.bullets.map((bullet) => (
+                            <li key={bullet}>{bullet}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                      {offering.note ? <p className="about-offering-note">{offering.note}</p> : null}
+                    </m.article>
+                  ))}
+                </div>
               </div>
 
               <div className="about-photo-card">
                 <img
-                  src="https://framerusercontent.com/images/xpmH2RdbITEStJi8eg19H0zrwU.jpg?width=2709&height=1548"
+                  src="/images/ishwarya-profile-20260403.png"
                   alt="Ishwarya portrait"
                 />
                 <div className="about-photo-overlay" />
@@ -749,24 +988,7 @@ function App() {
           <SectionShell id="services" label="Services" title="Expertise Solutions">
             <div className="services-list">
               {services.map((service) => (
-                <m.a
-                  key={service.title}
-                  className="service-row"
-                  href="#footer-cta"
-                  variants={itemVariants}
-                  whileHover={{ y: -8 }}
-                >
-                  <div className="service-row-main">
-                    <span className="service-number">{service.number}</span>
-                    <h3>{service.title}</h3>
-                  </div>
-                  <span className="service-row-arrow">
-                    <ArrowIcon />
-                  </span>
-                  <span className="service-row-preview" aria-hidden="true">
-                    <img src={service.image} alt="" />
-                  </span>
-                </m.a>
+                <ServiceRow key={service.title} service={service} />
               ))}
             </div>
           </SectionShell>
@@ -782,6 +1004,7 @@ function App() {
                   aria-hidden="true"
                 />
               </div>
+              <PortfolioLiveCount total={projects.length} prefersReducedMotion={prefersReducedMotion} />
             </div>
 
             <div className="portfolio-grid">
@@ -1241,9 +1464,9 @@ function App() {
               <div className="footer-column footer-column-wide">
                 <span className="footer-heading">About Ishwarya</span>
                 <p>
-                  I help students, freelancers, and creators build clean, powerful portfolios and
-                  stronger personal brands so they can stand out, attract opportunities, and move
-                  forward with confidence.
+                  I help students, freelancers, and creators with graphic design, UI/UX, clean
+                  portfolio websites, and stronger personal brands so they can stand out, attract
+                  opportunities, and move forward with confidence.
                 </p>
                 <div className="footer-socials">
                   <a href="#hero" aria-label="Facebook">
@@ -1267,10 +1490,11 @@ function App() {
                   <ul>
                     {links.map((link) => (
                       <li key={link}>
-                        <a href="#hero">{link}</a>
+                        {link.includes(':') ? <span>{link}</span> : <a href="#hero">{link}</a>}
                       </li>
                     ))}
                   </ul>
+                  {heading === 'Navigation' ? <FooterLiveProjectsCounter prefersReducedMotion={prefersReducedMotion} /> : null}
                 </div>
               ))}
 

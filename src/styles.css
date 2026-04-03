@@ -207,9 +207,11 @@ button:disabled {
 .button svg,
 .project-arrow svg,
 .circle-button svg,
-.article-card a svg {
+.article-card a svg,
+.article-view-button svg {
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .header-actions {
@@ -727,6 +729,81 @@ button:disabled {
   gap: 14px;
 }
 
+.portfolio-live-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 210px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 18% 50%, rgba(201, 243, 29, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.012));
+}
+
+.portfolio-live-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 0 rgba(201, 243, 29, 0.22),
+    0 0 18px rgba(201, 243, 29, 0.36);
+  animation: portfolio-live-pulse 1.8s ease-in-out infinite;
+}
+
+.portfolio-live-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.portfolio-live-label {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.portfolio-live-value-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.portfolio-live-value-wrap strong {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.portfolio-live-value-wrap span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@keyframes portfolio-live-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 0 rgba(201, 243, 29, 0.2),
+      0 0 18px rgba(201, 243, 29, 0.26);
+  }
+
+  50% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 0 10px rgba(201, 243, 29, 0),
+      0 0 24px rgba(201, 243, 29, 0.42);
+  }
+}
+
 .portfolio-title {
   margin: 0;
   font-family: 'Outfit', sans-serif;
@@ -762,6 +839,68 @@ button:disabled {
   color: var(--muted);
   font-size: 1.02rem;
   line-height: 1.9;
+}
+
+.about-offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.about-offering-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    linear-gradient(120deg, rgba(201, 243, 29, 0.06), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.022), rgba(255, 255, 255, 0.012));
+}
+
+.about-offering-card h3 {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.18rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.about-offering-card p,
+.about-offering-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.about-offering-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-offering-list li {
+  position: relative;
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.about-offering-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(201, 243, 29, 0.3);
 }
 
 .about-photo-card {
@@ -1078,12 +1217,66 @@ button:disabled {
   gap: 18px;
 }
 
+.service-row-copy {
+  display: grid;
+  gap: 12px;
+}
+
 .service-row h3 {
   margin: 0;
   font-family: 'Outfit', sans-serif;
   font-size: 1.5rem;
   line-height: 1.06;
   letter-spacing: -0.03em;
+}
+
+.service-row-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    max-height 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease,
+    transform 420ms ease;
+}
+
+.service-row-feature {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(201, 243, 29, 0.2);
+  border-radius: 999px;
+  background: rgba(201, 243, 29, 0.06);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-row.is-open .service-row-copy {
+  align-content: start;
+}
+
+.service-row.is-open .service-row-features {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-row.is-open .service-row-feature {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .service-row-arrow {
@@ -1901,6 +2094,33 @@ button:disabled {
   color: rgba(255, 255, 255, 0.82);
 }
 
+.footer-live-projects {
+  display: grid;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 16px 18px;
+  border: 1px solid rgba(201, 243, 29, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 12% 24%, rgba(201, 243, 29, 0.14), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.012));
+}
+
+.footer-live-projects-label {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.footer-live-projects strong {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
 .footer-socials {
   display: flex;
   gap: 10px;
@@ -2262,6 +2482,10 @@ button:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .portfolio-live-card {
+    min-width: 196px;
+  }
+
   .project-card {
     grid-column: span 1;
     min-height: 360px;
@@ -2359,6 +2583,10 @@ button:disabled {
 
   .hero-description {
     max-width: 520px;
+  }
+
+  .about-offerings-grid {
+    grid-template-columns: 1fr;
   }
 
   .stats-grid {
@@ -2647,6 +2875,28 @@ button:disabled {
     color: rgba(255, 255, 255, 0.74);
   }
 
+  .about-offerings-grid {
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .about-offering-card {
+    gap: 10px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .about-offering-card h3 {
+    font-size: 1.02rem;
+  }
+
+  .about-offering-card p,
+  .about-offering-note,
+  .about-offering-list li {
+    font-size: 0.84rem;
+    line-height: 1.68;
+  }
+
   .section-about .section-heading h2 {
     max-width: 300px;
     font-size: clamp(2.45rem, 11vw, 3.2rem);
@@ -2684,9 +2934,28 @@ button:disabled {
     gap: 8px;
   }
 
+  .service-row-copy {
+    gap: 10px;
+  }
+
   .service-row h3 {
     max-width: 14ch;
     font-size: 1.08rem;
+  }
+
+  .service-row-features {
+    gap: 8px;
+    transition-duration: 520ms, 300ms, 360ms;
+  }
+
+  .service-row-feature {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.58rem;
+  }
+
+  .service-row.is-open .service-row-features {
+    max-height: 340px;
   }
 
   .service-row-arrow {
@@ -2704,6 +2973,22 @@ button:disabled {
     align-items: start;
     flex-direction: column;
     margin-bottom: 18px;
+  }
+
+  .portfolio-live-card {
+    min-width: 0;
+    width: 100%;
+    max-width: 240px;
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+
+  .portfolio-live-value-wrap strong {
+    font-size: 1.7rem;
+  }
+
+  .portfolio-live-value-wrap span {
+    font-size: 0.72rem;
   }
 
   .portfolio-title {
@@ -3218,6 +3503,20 @@ button:disabled {
 
   .footer-column:last-child {
     border-bottom: none;
+  }
+
+  .footer-live-projects {
+    gap: 6px;
+    margin-top: 16px;
+    padding: 14px 0 0;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .footer-live-projects strong {
+    font-size: 2rem;
   }
 
   .newsletter-form {
