@@ -311,7 +311,7 @@ const articles = [
 ];
 
 const footerLinks = {
-  Navigation: ['Home: Bangalore, India', 'About', 'Services: All Over India', 'My Projects', 'Blog', '404'],
+  Navigation: ['Home: India', 'About', 'Services: All Over India', 'My Projects', 'Blog', '404'],
   Services: ['Graphic Design', 'Analytics & Strategy', 'UX/UI Design', 'Branding & Identity', 'Web Development'],
 };
 
@@ -452,12 +452,6 @@ function ServiceRow({ service }) {
           ) : null}
         </div>
       </div>
-      <span className="service-row-arrow">
-        <ArrowIcon />
-      </span>
-      <span className="service-row-preview" aria-hidden="true">
-        <img src={service.image} alt="" />
-      </span>
     </m.a>
   );
 }
@@ -917,12 +911,12 @@ function App() {
                 </div>
               </div>
 
-              <div className="about-photo-card">
-                <img
-                  src="/images/ishwarya-profile-20260403.png"
-                  alt="Ishwarya portrait"
-                />
-                <div className="about-photo-overlay" />
+                <div className="about-photo-card">
+                  <img
+                    src="/images/ishwarya-profile-20260403.png"
+                    alt="Ishwarya portrait"
+                  />
+                  <div className="about-photo-overlay" />
               </div>
             </div>
 
