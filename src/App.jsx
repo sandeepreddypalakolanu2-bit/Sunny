@@ -140,18 +140,99 @@ const articles = [
     date: 'Oct 25, 2024',
     title: 'Effective Strategies to Boost Your Online',
     image: 'https://framerusercontent.com/images/OYsOTzdfdbBueMoCEpLadRHzAu0.jpg',
+    intro:
+      'A strong online presence starts with clarity. When someone lands on your portfolio, they should instantly understand who you are, what you do, and why your work matters.',
+    overview:
+      'This article focuses on the three biggest portfolio levers: first impression, proof of quality, and conversion. Together, they turn a beautiful website into something that earns trust and brings inquiries.',
+    gallery: [
+      {
+        title: 'Create a clear first impression',
+        description:
+          'Use a focused headline, confident photo styling, and a simple opening section so visitors understand your identity in the first few seconds.',
+        image:
+          'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Show proof through real work',
+        description:
+          'Case studies, reels, mockups, and polished screenshots help people trust your skills. Your portfolio should feel like evidence, not just a promise.',
+        image:
+          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Guide visitors to take action',
+        description:
+          'Strong calls to action, clear contact blocks, and friendly messaging make it easier for clients to move from interest to inquiry.',
+        image:
+          'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80',
+      },
+    ],
   },
   {
     category: 'Business',
     date: 'Oct 4, 2024',
     title: "Importance of UX/UI Design in Today's",
     image: 'https://framerusercontent.com/images/0g1NFFzgEwVSVsRaGntwvAkeSIA.jpg',
+    intro:
+      'Great UI makes a portfolio look premium, but great UX is what makes it feel easy, smooth, and memorable. The best websites win with both.',
+    overview:
+      'This article breaks down how structure, readability, and interaction design work together. A good portfolio should feel beautiful at first glance and effortless while browsing every section.',
+    gallery: [
+      {
+        title: 'Build the structure before styling',
+        description:
+          'Clear content hierarchy, strong spacing, and smart section order help people scan naturally. Good UX begins before colors and effects.',
+        image:
+          'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Make every interaction comfortable',
+        description:
+          'Buttons, menus, hover states, and scrolling behavior should feel natural on both desktop and mobile so users stay focused on your work.',
+        image:
+          'https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Keep the brand feeling consistent',
+        description:
+          'Typography, image treatment, and accent colors should support the same mood across the whole site so your presence feels intentional and professional.',
+        image:
+          'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
+      },
+    ],
   },
   {
     category: 'Business',
     date: 'Sep 6, 2024',
     title: '10 UI Design Tricks & Marketing Tips',
     image: 'https://framerusercontent.com/images/Y1dUMQSt2LjbjGAdmMsAIiRaIw8.jpg',
+    intro:
+      'Small design choices can completely change how professional your portfolio feels. The right mix of UI polish and marketing thinking helps your work get remembered.',
+    overview:
+      'This article highlights practical improvements that make portfolios stronger: contrast, rhythm, emphasis, and messaging. These details help your site look better and communicate faster.',
+    gallery: [
+      {
+        title: 'Use contrast to direct attention',
+        description:
+          'Bold headings, calm body text, and accent colors around key actions make it easier for visitors to see what matters most on the page.',
+        image:
+          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Create rhythm with layout and spacing',
+        description:
+          'Alternating card sizes, section pacing, and white space help the design feel premium instead of flat or repetitive.',
+        image:
+          'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80',
+      },
+      {
+        title: 'Write CTAs that sound personal',
+        description:
+          'The best calls to action feel human and specific. Instead of generic prompts, use language that reflects your personality and the value you offer.',
+        image:
+          'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+      },
+    ],
   },
 ];
 
@@ -270,6 +351,7 @@ function App() {
   const prefersReducedMotion = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [activeArticle, setActiveArticle] = useState(null);
   const [contactForm, setContactForm] = useState(initialContactForm);
   const [contactState, setContactState] = useState(initialSubmissionState);
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -277,26 +359,27 @@ function App() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen || contactOpen ? 'hidden' : '';
+    document.body.style.overflow = menuOpen || contactOpen || activeArticle ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [menuOpen, contactOpen]);
+  }, [menuOpen, contactOpen, activeArticle]);
 
   useEffect(() => {
-    if (!contactOpen) {
+    if (!contactOpen && !activeArticle) {
       return undefined;
     }
 
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
         setContactOpen(false);
+        setActiveArticle(null);
       }
     };
 
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [contactOpen]);
+  }, [contactOpen, activeArticle]);
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -329,12 +412,23 @@ function App() {
 
   function openContactModal() {
     setMenuOpen(false);
+    setActiveArticle(null);
     setContactState(initialSubmissionState);
     setContactOpen(true);
   }
 
   function closeContactModal() {
     setContactOpen(false);
+  }
+
+  function openArticleModal(article) {
+    setMenuOpen(false);
+    setContactOpen(false);
+    setActiveArticle(article);
+  }
+
+  function closeArticleModal() {
+    setActiveArticle(null);
   }
 
   function handleContactFieldChange(event) {
@@ -841,10 +935,10 @@ function App() {
                   <div className="article-media">
                     <img src={article.image} alt={article.title} />
                   </div>
-                  <a href="#footer-cta">
+                  <button type="button" className="article-view-button" onClick={() => openArticleModal(article)}>
                     View
                     <ArrowIcon />
-                  </a>
+                  </button>
                 </m.article>
               ))}
             </div>
@@ -966,6 +1060,83 @@ function App() {
                   </div>
                 </form>
               </m.div>
+            </m.div>
+          ) : null}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {activeArticle ? (
+            <m.div
+              className="article-modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeArticleModal}
+            >
+              <m.section
+                className="article-modal"
+                initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="article-modal-header">
+                  <div className="article-modal-headline">
+                    <div className="article-modal-meta">
+                      <span className="article-modal-pill">{activeArticle.category}</span>
+                      <span className="article-modal-date">
+                        <CalendarIcon />
+                        {activeArticle.date}
+                      </span>
+                    </div>
+                    <h3>{activeArticle.title}</h3>
+                  </div>
+                  <button
+                    className="contact-modal-close"
+                    type="button"
+                    aria-label="Close article"
+                    onClick={closeArticleModal}
+                  >
+                    <CloseIcon />
+                  </button>
+                </div>
+
+                <p className="article-modal-intro">{activeArticle.intro}</p>
+                <p className="article-modal-overview">{activeArticle.overview}</p>
+
+                <div className="article-modal-grid">
+                  {activeArticle.gallery.map((item, index) => (
+                    <m.article
+                      key={item.title}
+                      className="article-story-card"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: 0.08 * index, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <div className="article-story-media">
+                        <img src={item.image} alt={item.title} />
+                      </div>
+                      <div className="article-story-copy">
+                        <span className="article-story-step">{`0${index + 1}`}</span>
+                        <h4>{item.title}</h4>
+                        <p>{item.description}</p>
+                      </div>
+                    </m.article>
+                  ))}
+                </div>
+
+                <div className="article-modal-footer">
+                  <p>
+                    Want your own portfolio to feel this clear, personal, and professional? I can
+                    help you build it with the same level of design direction.
+                  </p>
+                  <button className="button button-accent" type="button" onClick={openContactModal}>
+                    Start Your Portfolio
+                    <ArrowIcon />
+                  </button>
+                </div>
+              </m.section>
             </m.div>
           ) : null}
         </AnimatePresence>
