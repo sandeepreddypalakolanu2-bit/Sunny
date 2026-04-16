@@ -324,12 +324,12 @@ const emailBody = encodeURIComponent(
 );
 
 const contactDetails = {
-  whatsapp: '+91 7358369538',
+  whatsapp: '7358369538',
   whatsappHref: `https://api.whatsapp.com/send?phone=917358369538&text=${whatsappPrefillMessage}`,
-  instagram: '@brandbyaishu_04',
-  instagramHref: 'https://www.instagram.com/brandbyaishu_04/',
-  email: 'aishuaishu4288@gmail.com',
-  emailHref: `https://mail.google.com/mail/?view=cm&fs=1&to=aishuaishu4288@gmail.com&su=${emailSubject}&body=${emailBody}`,
+  instagram: '@tarang.builds',
+  instagramHref: 'https://www.instagram.com/tarang.builds/',
+  email: 'tarang.builds@gmail.com',
+  emailHref: `https://mail.google.com/mail/?view=cm&fs=1&to=tarang.builds@gmail.com&su=${emailSubject}&body=${emailBody}`,
 };
 
 const initialContactForm = {
@@ -913,7 +913,7 @@ function App() {
 
                 <div className="about-photo-card">
                   <img
-                    src="/images/ishwarya-profile-20260403.png"
+                    src="/images/ishwarya-profile-20260413.jpg"
                     alt="Ishwarya portrait"
                   />
                   <div className="about-photo-overlay" />
@@ -1469,7 +1469,7 @@ function App() {
                   <a href="#hero" aria-label="X">
                     <XIcon />
                   </a>
-                  <a href="#hero" aria-label="Instagram">
+                  <a href={contactDetails.instagramHref} target="_blank" rel="noreferrer" aria-label="Instagram">
                     <InstagramIcon />
                   </a>
                   <a href="#hero" aria-label="YouTube">
